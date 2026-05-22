@@ -69,6 +69,10 @@
 </script>
 
 {% if seo.person %}
+{% set sameAsLinks = [
+  seo.person.github and "https://github.com/" + seo.person.github,
+  seo.person.linkedin
+] %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -76,11 +80,7 @@
   "name": {{ seo.person.name | safeJsonLd | safe }},
   "jobTitle": {{ seo.person.role | safeJsonLd | safe }},
   "url": {{ canonicalUrl | safeJsonLd | safe }},
-  "sameAs": [
-    {% if seo.person.github %}{{ ("https://github.com/" + seo.person.github) | safeJsonLd | safe }}{% endif %}
-    {% if seo.person.github and seo.person.linkedin %},{% endif %}
-    {% if seo.person.linkedin %}{{ seo.person.linkedin | safeJsonLd | safe }}{% endif %}
-  ]
+  "sameAs": {{ sameAsLinks | safeJsonLdArray | safe }}
 }
 </script>
 {% endif %}

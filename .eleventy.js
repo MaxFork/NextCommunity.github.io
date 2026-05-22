@@ -5,6 +5,9 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.addFilter("safeJsonLd", (value) =>
     JSON.stringify(value).replace(/<\//g, "<\\/")
   );
+  eleventyConfig.addFilter("safeJsonLdArray", (value) =>
+    JSON.stringify((value || []).filter(Boolean)).replace(/<\//g, "<\\/")
+  );
   // Add this line to copy your external assets
   eleventyConfig.addPassthroughCopy("src/assets");
   // 1. Recognize YAML as a template format

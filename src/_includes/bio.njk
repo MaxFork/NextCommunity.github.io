@@ -8,7 +8,6 @@
       | replace('\r', ' ')
       | replace('\n', ' ')
       | replace('\t', ' ')
-      | replace('"', "'")
       | trim
       | truncate(160))
     or "" %}
